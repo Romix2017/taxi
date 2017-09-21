@@ -1,0 +1,136 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.42;
+  border-radius: 15px;
+  cursor:default !important;
+}
+
+#chooseDriver tr:first-child{
+
+    background-color:black !important;
+    color:white !important;
+
+}
+
+.tableOrders tr:first-child{
+
+    background-color:black !important;
+    color:white !important;
+
+}
+
+
+#chooseDriver tr:nth-child(odd){
+      background-color:darkgrey;
+    color:black;
+}
+
+.tableOrders tr:nth-child(odd){
+    background-color:darkgrey;
+    color:black;
+}
+
+#chooseDriver td{
+    border: 1px black solid;
+}
+.tableOrders td {
+border: 1px black solid;
+}
+
+.assigned {
+background-color:lightgreen !important;
+}
+
+.driverTable{margin-left:auto; margin-right:auto;}
+
+.tableOrders{width:900px; margin-left:auto; margin-right:auto;}
+
+.tableOrders tr{font-size:14px;text-align:center;}
+
+
+
+
+.lookOrders{max-width:300px; width:100%;}
+
+#phoneNumber{    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom:20px;
+}
+.mainForm{position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;}
+
+.jumbotron h2{text-align:center; font-size:50px;}
+#orderBtn{font-size:20px; width:100%; display:none;}
+.tx-dropdown-menu {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 700px;
+    font-size: 18px;
+    background-color:white;
+    font-size:12px;
+    height:100px;
+
+
+
+overflow:scroll;
+
+}
+.tx-suggestion {
+    padding: 8px 10px;
+    line-height: 1em;
+    cursor: pointer;
+}
+.tx-suggestion.tx-newcalc {
+    padding: 0;
+    line-height: 1em;
+    cursor: pointer;
+}
+
+    .tx-suggestion p {
+        margin: 0;
+    }
+    
+        .tx-suggestion.tx-newcalc p a {
+            display: block;
+            padding: 8px 10px;
+            text-decoration: none;
+        }
+
+.tx-is-under-cursor, .tx-suggestion.tx-newcalc.tx-hover p a {
+    background: #3399FF;
+    color: #fff;
+}
+#dropdown{display: none; position: absolute; background-color: white; border: #c9c9c9 1px solid; z-index: 9999;}
+#map{display:none;}

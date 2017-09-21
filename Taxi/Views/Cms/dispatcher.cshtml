@@ -1,0 +1,90 @@
+﻿@using Taxi.Models;
+@model ViewModelCms
+@{
+    ViewBag.Title = "Index";
+}
+<script>
+
+
+    window.onload = function () {
+
+        Dispatcher.init({ Status: 'all', requestUrl: "/cms/getOrders", pageSize: 10, pageNumber: 1, cancelBut: $(".cancel"), assignBut: $(".assign"), cancelLink: "/cms/cancelOrder" });
+    }
+
+
+</script>
+
+<div class="jumbotron">
+    <h2>Панель управления такси</h2>
+    Здравствуйте, @Model.position
+    <h3 class="text-center">Список заявок</h3>
+    <div class="tableOrders"></div>
+
+
+</div>
+
+<!-- assign driver -->
+<div id="chooseDriver" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Список водителей</h4>
+            </div>
+            <div class="modal-body">
+                <p>Заявка отменена</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Ок</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- end assign driver-->
+
+<!-- Modal cancel -->
+<div id="cancelSuccess" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Успешно</h4>
+            </div>
+            <div class="modal-body">
+                <p>Заявка отменена</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Ок</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- end Modal error-->
+
+<!--cancel error-->
+<div id="cancelError" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Ошибка</h4>
+            </div>
+            <div class="modal-body">
+                <p>При отмене заявки возникла ошибка</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Ок</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- cancel error-->

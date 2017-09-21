@@ -1,0 +1,24 @@
+﻿@using Taxi.Models;
+@model ViewModelUserCabinet
+@{
+    Layout = null;
+}
+
+<script>
+
+
+    window.onload = function () {
+
+        UserOrders.init({ UserPhone: '@Model.UserPhone', requestUrl: "/usercabinet/getOrders", pageSize: 10, pageNumber: 1 });
+    }
+
+
+</script>
+
+<div class="jumbotron">
+  <h3 class="text-center">Список Ваших заявок</h3> 
+    <div class="tableOrders"></div>
+
+
+</div>
+
