@@ -4,8 +4,8 @@ Dispatcher = {
 
     options: {
         total: 0,
-        assignObjectID: 0
-
+        assignObjectID: 0,
+        assignedDriver: 0
     },
 
     init: function (options) {
@@ -14,7 +14,22 @@ Dispatcher = {
 
         Dispatcher.getTableViaAjax();
 
+        Dispatcher.options.filterBlock.find("input[type=button]").on("click", function (event) {
+
+            Dispatcher.setStatus(event);
+
+
+        });
        
+
+    },
+
+    setStatus: function(event){
+
+        Dispatcher.options.Status = $(event.target).data("status");
+        Dispatcher.options.pageNumber = 1;
+        Dispatcher.getTableViaAjax();
+
 
     },
 
@@ -26,7 +41,7 @@ Dispatcher = {
         var button = event.target;
 
 
-        Dispatcher.ajaxSend(Dispatcher.options.cancelLink, { orderID: event.target.getAttribute("data-id") }, function () { $("#cancelSuccess").modal("show"); Dispatcher.getTableViaAjax(); }, $(button))
+        Dispatcher.ajaxSend(Dispatcher.options.cancelLink, { orderID: event.target.getAttribute("data-id") }, function () { $("#cancelSuccess").modal("show"); Dispatcher.getTableViaAjax(); },null, $(button))
         
 
 
@@ -37,31 +52,39 @@ Dispatcher = {
      
 
         Dispatcher.options.assignObjectID = event.target.getAttribute("data-id");
+        var driverID = event.target.getAttribute("data-driver");
 
-
-        Dispatcher.ajaxSend("/cms/getListOfDrivers", null, function (data) { Dispatcher.getListOfDrivers(data);}, null)
+        Dispatcher.ajaxSend("/cms/getListOfDrivers", null, function (data, driverID) {   Dispatcher.getListOfDrivers(data, driverID);},driverID, null)
     },
 
 
-    getListOfDrivers: function (data) {
+    getListOfDrivers: function (data, driverID) {
 
+       
 
        
         if (data.result == '1') {
-
+          
             var str = [];
 
             str.push("<table class='driverTable'>");
             str.push("<tr><td>Водитель</td><td>Назначить</td></tr>");
+            
             $.each(data.items, function (i, item) {
-                var s = Dispatcher.getItemDriver(item);
+                var s = Dispatcher.getItemDriver(item, driverID);
                 str.push("<tr>");
                 str.push(s);
                 str.push("</tr>");
+               
             });
          
             str.push("</table>")
-            $('#chooseDriver').find(".modal-body").html(str.join(""));
+            $("#chooseDriver").find(".modal-body").html("");
+
+          
+            $("#chooseDriver").find(".modal-body").html(str.join(""));
+
+            
             $("#chooseDriver").modal("show");
             
             $("input[type=radio]").on("change", function (event) {
@@ -85,7 +108,7 @@ Dispatcher = {
        var driverID = event.target.id;
 
 
-       Dispatcher.ajaxSend("/cms/setDriver", {orderID: orderID, driverID: driverID}, function (data) { Dispatcher.callbackSetDriver(data) }, null)
+       Dispatcher.ajaxSend("/cms/setDriver", {orderID: orderID, driverID: driverID}, function (data) { Dispatcher.callbackSetDriver(data) },null, null)
 
     },
 
@@ -101,16 +124,27 @@ Dispatcher = {
 
     },
 
-    getItemDriver: function (item) {
-
+    getItemDriver: function (item, driverID) {
+        
         var s = [];
 
-        s.push("<td>"+item.userName+"</td>");
-        s.push("<td><div class='text-center'><input id='" + item.userID + "' type=\"radio\" name=\"optradio\"></div></td>");
+        s.push("<td>" + item.userName + "</td>");
+        
+        if (item.userID == driverID)
+        {
+           
 
-        s.join("");
+            s.push("<td class='green_back'><div class='text-center'><input id='" + item.userID + "' type=\"radio\" name=\"optradio\" checked></div></td>");
+        }
+        else
+        {
+            s.push("<td><div class='text-center'><input id='" + item.userID + "' type=\"radio\" name=\"optradio\"></div></td>");
+        }
+        
 
-        return s;
+       
+
+        return s.join("");
 
 
 
@@ -125,10 +159,11 @@ Dispatcher = {
             pageNumber: Dispatcher.options.pageNumber
 
 
+
         }
 
 
-        Dispatcher.ajaxSend(Dispatcher.options.requestUrl, ajaxObj, function (data) { Dispatcher.ajaxSendCallback(data) }, null);
+        Dispatcher.ajaxSend(Dispatcher.options.requestUrl, ajaxObj, function (data) { Dispatcher.ajaxSendCallback(data) },null, null);
 
     },
 
@@ -146,7 +181,7 @@ Dispatcher = {
             num_edge_entries: 1,
             current_page: Dispatcher.options.pageNumber - 1
         });
-        var pagingcontainerwidth = 252 + 20 * total / Dispatcher.options.pageSize;
+        var pagingcontainerwidth = 290 + 20 * total / Dispatcher.options.pageSize;
         $("#pagingcontainer").css('width', '' + pagingcontainerwidth + 'px');
     },
 
@@ -237,7 +272,19 @@ Dispatcher = {
             s.push("<td><a href='#' class='btn btn-danger cancel' data-id='" + item.ID + "'>Отменить</a></td>");
 
 
-            s.push("<td><a href='#' class='btn btn-success assign' data-id='" + item.ID + "'>Назначить</a></td>");
+            if (item.driver != null)
+            {
+                s.push("<td><a href='#' class='btn btn-success assign' data-driver='"+ item.driver+"' data-id='" + item.ID + "'>Назначить</a></td>");
+            }
+            else
+            {
+                s.push("<td><a href='#' class='btn btn-success assign' data-id='" + item.ID + "'>Назначить</a></td>");
+            }
+
+           
+
+
+
         }
         
 
@@ -246,7 +293,7 @@ Dispatcher = {
 
 
     },
-    ajaxSend: function (url, data, callback, btn) {
+    ajaxSend: function (url, data, callback, secondParamForCallback, btn) {
         var params = data;
         var txt = "";
         if (btn) {
@@ -267,7 +314,7 @@ Dispatcher = {
                 var response = data;
                 if (data.d != undefined) response = data.d;
                 if (typeof (response) != "object") response = eval('(' + response + ')');
-                if (callback) callback(response);
+                if (callback) callback(response, secondParamForCallback);
             },
             complete: function () {
 

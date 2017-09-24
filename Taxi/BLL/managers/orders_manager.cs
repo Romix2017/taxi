@@ -133,14 +133,27 @@ namespace Taxi.BLL
 
                 Repository mng = new Repository();
                 IQueryable < tx_orders > myQuery = null;
-                if (Status == "all")
+
+                switch(Status)
                 {
-                    myQuery = mng.getOrders().OrderByDescending(y => y.date);
+                    case "all":
+                        myQuery = mng.getOrders().OrderByDescending(y => y.date);
+                        break;
+                    case "assigned":
+                        myQuery = mng.getOrders().Where(x => (x.status == "new" && x.driver != null)).OrderByDescending(y => y.date);
+                        break;
+                    default:
+                        myQuery = mng.getOrders().Where(x => x.status == Status).OrderByDescending(y => y.date);
+
+                        break;
+
+
+
+
+
                 }
-                else
-                {
-                    myQuery = mng.getOrders().Where(x => x.status == Status).OrderByDescending(y => y.date);
-                }
+
+              
 
                 
             

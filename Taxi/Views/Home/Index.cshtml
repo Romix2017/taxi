@@ -18,8 +18,8 @@
             mapComponent.init({
                 mapID: "map", routeBut: $("#routeBtn"), pointAinside: $("#pointA"), pointBinside: $("#pointB"), priceFor1km: 8,
                 modalError: $("#myModalError"), orderBut: $("#orderBtn"), modalSendOrder: $("#myModalSendOrder"),
-                phoneNumberBox: $("#phoneNumber"), sendOrderBut: $("#sendOrder"), isAuthenticated: '@Model.isAuthenticated.ToString().ToLower()', phoneNumber: '@Model.userPhone'
-
+                phoneNumberBox: $("#phoneNumber"), sendOrderBut: $("#sendOrder"), isAuthenticated: '@Model.isAuthenticated.ToString().ToLower()', phoneNumber: '@Model.userPhone',
+                alert_box: $(".errorEmptyField")
             })
         }
 
@@ -50,7 +50,9 @@
 
         <div class="infoOrder"><div class="distance"></div><div class="price"></div></div>
         <input type="button" value="Заказать" class="btn btn-success" id="orderBtn">
-        
+        <div class="alert alert-danger collapse errorEmptyField">
+             Для расчета марштрута, заполните пустые поля!
+        </div>
     </form>
     <div id="map"></div>
 

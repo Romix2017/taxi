@@ -1,4 +1,7 @@
 ﻿@using Microsoft.AspNet.Identity
+@using Taxi.Interfaces;
+@model ILayoutLogin
+
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -7,8 +10,24 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Привет " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
+
+            @{
+                if (Model.actionLink != null)
+                {
+                    @Html.ActionLink("Привет " + User.Identity.GetUserName() + "!", Model.actionLink, Model.controllerLink, routeValues: null, htmlAttributes: new { title = "Manage" })
+                }
+                else
+                {
+                    @Html.ActionLink("Привет " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                }
+
+
+            }
+         
+       
+        
+        
+         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
     }

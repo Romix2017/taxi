@@ -10,6 +10,7 @@ using Taxi.Models;
 using Taxi.BLL.managers;
 using System.Web.Script.Serialization;
 using Taxi.ActionFilters;
+
 namespace Taxi.Controllers
 {
     
@@ -30,6 +31,11 @@ namespace Taxi.Controllers
 
           string currentUserRole =  mng.getCurrentUserRoles();
             ViewModelCms localModel = new ViewModelCms();
+
+
+            localModel.controllerLink = mng.getLoginPartialLinks().controllerLink;
+            localModel.actionLink = mng.getLoginPartialLinks().actionLink;
+
             localModel.position = currentUserRole;
 
             return View(localModel);
@@ -45,6 +51,10 @@ namespace Taxi.Controllers
             string currentUserRole = mng.getCurrentUserRoles();
             ViewModelCms localModel = new ViewModelCms();
             localModel.position = currentUserRole;
+
+            localModel.controllerLink = mng.getLoginPartialLinks().controllerLink;
+            localModel.actionLink = mng.getLoginPartialLinks().actionLink;
+
 
             localModel.driverID = HttpContext.User.Identity.GetUserId();
 
@@ -103,7 +113,8 @@ namespace Taxi.Controllers
             string currentUserRole = mng.getCurrentUserRoles();
             ViewModelCms localModel = new ViewModelCms();
             localModel.position = currentUserRole;
-
+            localModel.controllerLink = mng.getLoginPartialLinks().controllerLink;
+            localModel.actionLink = mng.getLoginPartialLinks().actionLink;
             return View(localModel);
         }
 

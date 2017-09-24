@@ -27,6 +27,10 @@ namespace Taxi.Controllers
             UserPhone = mng.getUserPhone();
 
             ViewModelUserCabinet model = new ViewModelUserCabinet();
+
+
+            model.controllerLink = mng.getLoginPartialLinks().controllerLink;
+            model.actionLink = mng.getLoginPartialLinks().actionLink;
             model.UserPhone = UserPhone;
 
             return View(model);

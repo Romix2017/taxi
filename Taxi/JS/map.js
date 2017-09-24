@@ -24,12 +24,44 @@
          mapComponent.options.pointBinside.on("click", function (event) { mapComponent.options.pointBinside.val(""); });
          mapComponent.options.pointAinside.on("keyup", function (event) { mapComponent.findGeoMap(mapComponent.options.pointAinside, event) });
          mapComponent.options.pointBinside.on("keyup", function (event) { mapComponent.findGeoMap(mapComponent.options.pointBinside, event) })
-         mapComponent.options.orderBut.on("click", function () { mapComponent.createNewOrder();});
+         mapComponent.options.pointAinside.on("focusout", function () { mapComponent.checkForEmptyFieldsPoints(); });
+         mapComponent.options.pointBinside.on("focusout", function () { mapComponent.checkForEmptyFieldsPoints(); });
+
+         mapComponent.options.orderBut.on("click", function () { mapComponent.createNewOrder(); });
          mapComponent.options.sendOrderBut.on("click", function () { mapComponent.sendOrder(); });
 
      },
 
-     createRoute: function (pointAinside, pointBinside) {
+     checkForEmptyFieldsPoints: function () {
+
+         var result = 0;
+
+         if ((mapComponent.options.pointAinside.val() == "") || (mapComponent.options.pointBinside.val() == ""))
+         {
+             mapComponent.hideSendButtonAndClearKilometers();
+             result = 1;
+             return result;
+         }
+         else
+         {
+             mapComponent.options.alert_box.hide();
+             return result;
+
+         }
+
+         
+
+     },
+
+
+     hideSendButtonAndClearKilometers: function(){
+       //  mapComponent.options.orderBut.hide();
+         $(".distance").html("");
+         $(".price").html("");
+         mapComponent.options.alert_box.show();
+
+     },
+  createRoute: function (pointAinside, pointBinside) {
       
          ymaps.route([pointAinside, pointBinside]).then(
     function (route) {
@@ -50,7 +82,15 @@
      },
 
 
-     createNewOrder: function () {
+  createNewOrder: function () {
+
+      var result = mapComponent.checkForEmptyFieldsPoints();
+
+      if (result == 1)
+      {
+          return false;
+      }
+
          
          if (mapComponent.options.isAuthenticated == "true") {
          

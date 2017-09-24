@@ -8,7 +8,10 @@
 
     window.onload = function () {
 
-        Dispatcher.init({ Status: 'all', requestUrl: "/cms/getOrders", pageSize: 10, pageNumber: 1, cancelBut: $(".cancel"), assignBut: $(".assign"), cancelLink: "/cms/cancelOrder" });
+        Dispatcher.init({
+            Status: 'all', requestUrl: "/cms/getOrders", pageSize: 10, pageNumber: 1, cancelBut: $(".cancel"), assignBut: $(".assign"),
+            cancelLink: "/cms/cancelOrder", filterBlock: $(".filter-block")
+        });
     }
 
 
@@ -18,6 +21,14 @@
     <h2>Панель управления такси</h2>
     Здравствуйте, @Model.position
     <h3 class="text-center">Список заявок</h3>
+    <div class="filter-block">
+    <input type="button" data-status="all" class="btn btn-info"  value="Все"/>
+    <input type="button" data-status="new" class="btn btn-warning" value="Новые"/>
+    <input type="button" data-status="assigned" class="btn btn-success" value="Назначенные"/>
+    <input type="button" data-status="canceled" class="btn btn-danger" value="Отмененные"/>
+    <input type="button" data-status="done" class="btn btn-success" value="Выполненные"/>
+    </div>
+
     <div class="tableOrders"></div>
 
 

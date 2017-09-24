@@ -14,7 +14,7 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System.Security.Claims;
-
+using Taxi.Interfaces;
 
 namespace Taxi.BLL
 {
@@ -172,7 +172,37 @@ namespace Taxi.BLL
 
         }
 
+        public ILayoutLogin getLoginPartialLinks()
+        {
 
+            string currentUserRole = getCurrentUserRoles();
+            ILayoutLogin model = new ViewModelHome();
+            switch (currentUserRole)
+            {
+                case "Director":
+
+                    model.actionLink = "Index";
+                    model.controllerLink = "cms";
+                    break;
+
+                case "Dispatcher":
+                    model.actionLink = "dispatcher";
+                    model.controllerLink = "cms";
+                    break;
+                case "Driver":
+                    model.actionLink = "Driver";
+                    model.controllerLink = "cms";
+                    break;
+                case "Customer":
+                    model.actionLink = "Index";
+                    model.controllerLink = "userCabinet";
+                    break;
+            }
+
+
+            return model;
+
+        }
 
         public async Task<int> createNewUser(string phoneNumber)
         {

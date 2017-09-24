@@ -7,13 +7,14 @@ using Taxi.ActionFilters;
 using Taxi.Models;
 using Taxi.BLL;
 using System.Threading.Tasks;
+
 namespace Taxi.Controllers
 {
     public class HomeController : Controller
     {
 
         private HttpContext _context = System.Web.HttpContext.Current; 
-
+        
         public bool IsAuthenticated
         {
             get
@@ -36,6 +37,10 @@ namespace Taxi.Controllers
             if (IsAuthenticated)
             {
                 model.userPhone = mng.getUserPhone();
+
+                model.controllerLink = mng.getLoginPartialLinks().controllerLink;
+                model.actionLink = mng.getLoginPartialLinks().actionLink;
+
             }
 
 

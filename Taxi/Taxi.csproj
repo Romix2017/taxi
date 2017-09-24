@@ -181,6 +181,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\ILayoutLogin.cs" />
     <Compile Include="Migrations\201709191040358_InitialCreate.cs" />
     <Compile Include="Migrations\201709191040358_InitialCreate.Designer.cs">
       <DependentUpon>201709191040358_InitialCreate.cs</DependentUpon>
