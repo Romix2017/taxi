@@ -63,7 +63,7 @@ namespace Taxi.Controllers
 
 
         [HttpPost]
-        public string getOrdersForDriver(string driverID, int pageSize, int pageNumber)
+        public string getOrdersForDriver(string driverID, int pageSize, int pageNumber, string status = "all")
         {
             int res = -1;
             string jsObj = "";
@@ -71,7 +71,7 @@ namespace Taxi.Controllers
             int total = 0;
             try
             {
-                jsObj = js.Serialize(mng.getOrdersForDriver(out total, driverID , pageSize, pageNumber));
+                jsObj = js.Serialize(mng.getOrdersForDriver(out total, driverID , pageSize, pageNumber, status));
                 res = 1;
             }
             catch (Exception ex)

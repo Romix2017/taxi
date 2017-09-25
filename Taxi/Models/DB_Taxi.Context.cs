@@ -27,5 +27,6 @@ namespace Taxi.Models
     
         public virtual DbSet<tx_trace> tx_trace { get; set; }
         public virtual DbSet<tx_orders> tx_orders { get; set; }
+        public virtual DbSet<tx_settings> tx_settings { get; set; }
     }
 }

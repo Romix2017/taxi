@@ -20,6 +20,14 @@
           <Property Name="driver" Type="nvarchar" MaxLength="50" />
           <Property Name="dispatcher" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="tx_settings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="value" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="tx_trace">
           <Key>
             <PropertyRef Name="Id" />
@@ -33,6 +41,7 @@
         </EntityType>
         <EntityContainer Name="DB_taxiModelStoreContainer">
           <EntitySet Name="tx_orders" EntityType="Self.tx_orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tx_settings" EntityType="Self.tx_settings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tx_trace" EntityType="Self.tx_trace" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -42,6 +51,7 @@
         <EntityContainer Name="DB_taxiEntities" annotation:LazyLoadingEnabled="true" >
           <EntitySet Name="tx_trace" EntityType="DB_taxiModel.tx_trace" />
           <EntitySet Name="tx_orders" EntityType="DB_taxiModel.tx_orders" />
+          <EntitySet Name="tx_settings" EntityType="DB_taxiModel.tx_settings" />
         </EntityContainer>
         <EntityType Name="tx_trace">
           <Key>
@@ -68,6 +78,14 @@
           <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="driver" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="dispatcher" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tx_settings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="value" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -100,6 +118,15 @@
                 <ScalarProperty Name="pointA" ColumnName="pointA" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tx_settings">
+            <EntityTypeMapping TypeName="DB_taxiModel.tx_settings">
+              <MappingFragment StoreEntitySet="tx_settings">
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

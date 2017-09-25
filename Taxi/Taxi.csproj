@@ -219,6 +219,9 @@
     <Compile Include="Models\tx_orders.cs">
       <DependentUpon>DB_Taxi.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tx_settings.cs">
+      <DependentUpon>DB_Taxi.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tx_trace.cs">
       <DependentUpon>DB_Taxi.tt</DependentUpon>
     </Compile>
@@ -245,6 +248,7 @@
     <Content Include="JS\maskedInput.js" />
     <Content Include="JS\pagination\jquery.pagination.js" />
     <Content Include="JS\pagination\pagination.css" />
+    <Content Include="JS\settings.js" />
     <Content Include="JS\userOrders.js" />
     <Content Include="Models\DB_Taxi.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

@@ -4,7 +4,8 @@ Driver = {
 
     options: {
         total: 0,
-        assignObjectID: 0
+        assignObjectID: 0,
+        Status:"all"
 
     },
 
@@ -14,6 +15,19 @@ Driver = {
 
         Driver.getTableViaAjax();
 
+        Driver.options.filterBlock.find("input[type=button]").on("click", function (event) {
+
+            Driver.setStatus(event);
+
+
+        });
+
+    },
+    setStatus: function(event){
+      
+        Driver.options.Status = $(event.target).data("status");
+        Driver.options.pageNumber = 1;
+        Driver.getTableViaAjax();
 
 
     },
@@ -23,8 +37,8 @@ Driver = {
 
             driverID: Driver.options.driverID,
             pageSize: Driver.options.pageSize,
-            pageNumber: Driver.options.pageNumber
-
+            pageNumber: Driver.options.pageNumber,
+            status: Driver.options.Status
 
         }
 

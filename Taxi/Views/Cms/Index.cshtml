@@ -4,6 +4,17 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Панель управления такси</h2>
-Здравствуйте, @Model.position
+<div class="jumbotron">
+    <h2>Панель управления такси</h2>
+    Здравствуйте, @Model.position
+  
+    <div class="managing-block">
+        <input type="button" data-status="settings" class="btn btn-info" value="Настройки" />
+        <input type="button" data-status="reports" class="btn btn-warning" value="Отчеты" />
+      
+    </div>
+    <div class="tableOrders"></div>
+
+
+</div>
 

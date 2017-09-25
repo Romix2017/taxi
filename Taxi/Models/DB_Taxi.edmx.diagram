@@ -7,6 +7,7 @@
       <Diagram DiagramId="85e2389ae51042d9ab2fc85ada366106" Name="Diagram1" >
         <EntityTypeShape EntityType="DB_taxiModel.tx_trace" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="DB_taxiModel.tx_orders" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_taxiModel.tx_settings" Width="1.5" PointX="0.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -66,7 +66,7 @@ namespace Taxi.BLL
          }
 
         //
-        public List<tx_orders> getOrdersForDriver(out int total, string driverID = "", int pageSize = 10, int pageNumber = 1)
+        public List<tx_orders> getOrdersForDriver(out int total, string driverID = "", int pageSize = 10, int pageNumber = 1, string status = "all")
         {
             List<tx_orders> res = new List<tx_orders>();
             try
@@ -74,8 +74,28 @@ namespace Taxi.BLL
 
                 Repository mng = new Repository();
                 IQueryable<tx_orders> myQuery = null;
+
+                switch (status)
+                {
+                    case "all":
+                        myQuery = mng.getOrders().Where(x => x.driver == driverID).OrderByDescending(y => y.date);
+                        break;
+                    case "assigned":
+                        myQuery = mng.getOrders().Where(x => (x.status == "new" && x.driver == driverID)).OrderByDescending(y => y.date);
+                        break;
+                    default:
+                        myQuery = mng.getOrders().Where(x => (x.status == status && x.driver == driverID)).OrderByDescending(y => y.date);
+
+                        break;
+
+
+
+
+
+                }
+
+
                 
-                myQuery = mng.getOrders().Where(x => x.driver == driverID).OrderByDescending(y => y.date);
                 
                 total = myQuery.Count();
                 res = myQuery.Skip(pageSize * (pageNumber - 1)).Take(pageSize).ToList();

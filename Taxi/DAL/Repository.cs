@@ -197,7 +197,126 @@ namespace Taxi.DAL
 
         #endregion
 
+        #region CRUD tx_settings
+        
+        public int addSettings(tx_settings newItem)
+        {
+            int res = 0;
 
+            try
+            {
+                db.tx_settings.Add(newItem);
+                db.SaveChanges();
+                res = 1;
+            }
+            catch (Exception ex)
+            {
+
+                Error_manager mng = new Error_manager();
+                mng.LogError(ex);
+                res = -1;
+                return res;
+            }
+
+
+            return res;
+        }
+
+
+
+        public tx_settings getSetting(string name)
+        {
+
+            tx_settings res = null;
+
+            try
+            {
+                res = db.tx_settings.Where(x => x.name == name).ToList().FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                Error_manager mng = new Error_manager();
+                mng.LogError(ex);
+                return res;
+            }
+
+            return res;
+
+        }
+
+        public IQueryable<tx_settings> getSettings()
+        {
+            IQueryable<tx_settings> res = null;
+
+            try
+            {
+                res = db.tx_settings;
+            }
+            catch (Exception ex)
+            {
+                Error_manager mng = new Error_manager();
+                mng.LogError(ex);
+                return res;
+            }
+
+
+            return res;
+
+        }
+
+
+        public int updateSetting(tx_settings element)
+        {
+
+            int res = -1;
+
+            try
+            {
+                db.Entry(element).State = EntityState.Modified;
+                db.SaveChanges();
+                res = 1;
+            }
+            catch (Exception ex)
+            {
+                Error_manager mng = new Error_manager();
+                mng.LogError(ex);
+                return res;
+            }
+
+            return res;
+        }
+
+        public int deleteSetting(string name)
+        {
+
+            int res = -1;
+
+            try
+            {
+                var element = db.tx_settings.SingleOrDefault(x => x.name == name);
+                if (element != null)
+                {
+                    db.Entry(element).State = System.Data.Entity.EntityState.Deleted;
+                    db.SaveChanges();
+                }
+
+
+                res = 1;
+            }
+            catch (Exception ex)
+            {
+                Error_manager mng = new Error_manager();
+                mng.LogError(ex);
+                return res;
+            }
+
+            return res;
+
+        }
+
+
+
+        #endregion
 
 
     }
